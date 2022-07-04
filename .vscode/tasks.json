@@ -1,0 +1,44 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "npm: install",
+			"type": "npm",
+			"script": "install",
+			"problemMatcher": ["$tsc"]
+		},
+		{
+			"label": "npm: client: build: debug",
+			"type": "npm",
+			"script": "client: build: debug",
+			"problemMatcher": ["$tsc"]
+		},
+		{
+			"label": "npm: client: build: release",
+			"type": "npm",
+			"script": "client: build: release",
+			"problemMatcher": ["$tsc"]
+		},
+		{
+			"label": "npm: server: build: debug",
+			"type": "npm",
+			"script": "server: build: debug",
+			"problemMatcher": []
+		},
+		{
+			"label": "npm: server: build: release",
+			"type": "npm",
+			"script": "server: build: release",
+			"problemMatcher": []
+		},
+		{
+			"label": "docker: compose: debug",
+			"type": "shell",
+			"command": "docker",
+			"args": ["compose", "--file", "docker-compose.debug.yml", "up"],
+			"problemMatcher": []
+		}
+	]
+}
