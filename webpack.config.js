@@ -17,7 +17,7 @@ const config = (env, { mode }) => {
 
 	const entry = `${src}/index.ts`;
 
-	const devtool = debugBuild ? "inline-source-map" : false;
+	const devtool = debugBuild ? "source-map" : false;
 
 	const tsLoaderRule = {
 		test: /\.tsx?$/,
@@ -43,10 +43,24 @@ const config = (env, { mode }) => {
 	var absDist = resolvePath(absRoot, dist);
 	const output = { filename: "app.[contenthash].js", path: absDist, clean: true };
 
-	const htmlPluginConfig = new HtmlWebpackPlugin({ title: "GoonSackGames - Sword", template: "./src/client/index.html" });
+	const cdnUrlSuffix = debugBuild ? ".min" : "";
+	const htmlPluginConfig = new HtmlWebpackPlugin({
+		template: "./src/client/index.html",
+		templateParameters: {
+			pixiCdnUrl: `https://unpkg.com/pixi.js@6.4.2/dist/browser/pixi${cdnUrlSuffix}.js`,
+			lodashCdnUrl: `https://unpkg.com/lodash@4.17.21/lodash${cdnUrlSuffix}.js`,
+			deepstreamCdnUrl: `https://unpkg.com/@deepstream/client@6.0.5/dist/bundle/ds${cdnUrlSuffix}.js`
+		}
+	});
 	const definePlugin = new webpack.DefinePlugin({ SERVER_HOST: JSON.stringify(env.SERVER_HOST) });
 	// const copyPlugin = new CopyPlugin({ patterns: [{ from: "assets/*/*", context: "./src/client" }] });
 	const plugins = [htmlPluginConfig, definePlugin /*, copyPlugin*/];
+
+	const externals = {
+		"pixi.js": "PIXI",
+		"@deepstream/client": "DeepstreamClient",
+		"lodash-es": "_"
+	};
 
 	return {
 		entry,
@@ -55,7 +69,8 @@ const config = (env, { mode }) => {
 		resolve,
 		module,
 		output,
-		plugins
+		plugins,
+		externals
 	};
 };
 

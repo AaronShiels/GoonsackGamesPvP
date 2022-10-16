@@ -1,7 +1,7 @@
 import { GameState } from "../state.js";
 
-type Initialiser = (state: GameState) => void;
+type Initialiser<TGameState extends GameState> = (state: TGameState) => void;
 
-type System = (state: GameState, delta: number) => void;
+type System<TGameState extends GameState> = (state: TGameState, delta: number) => void;
 
 export { System, Initialiser };

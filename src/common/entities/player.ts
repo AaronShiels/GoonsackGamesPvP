@@ -2,7 +2,9 @@ import { PhysicsComponent } from "../components/physics.js";
 import { Entity } from "./entity.js";
 
 interface PlayerEntity extends Entity, PhysicsComponent {
-	type: "player";
+	readonly type: "player";
 }
 
-export { PlayerEntity };
+const isPlayer = (entity: Entity): entity is PlayerEntity => entity.type === "player";
+
+export { PlayerEntity, isPlayer };

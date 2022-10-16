@@ -1,13 +1,17 @@
 import { DeepstreamClient } from "@deepstream/client";
+import { Application } from "pixi.js";
 import { GameState } from "../common/state.js";
 
-const createGameState = (connection: DeepstreamClient): GameState => {
-	connection.on("error", (...args: any[]) => console.error("Connection error", ...args));
+interface ClientGameState extends GameState {
+	app: Application;
+}
 
+const createGameState = (app: Application, connection: DeepstreamClient): ClientGameState => {
 	return {
+		app,
 		connection,
 		entities: []
 	};
 };
 
-export { createGameState };
+export { ClientGameState, createGameState };

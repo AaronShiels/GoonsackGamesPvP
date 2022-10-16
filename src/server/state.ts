@@ -1,7 +1,9 @@
 import { DeepstreamClient } from "@deepstream/client";
 import { GameState } from "../common/state.js";
 
-const createGameState = (connection: DeepstreamClient): GameState => {
+interface ServerGameState extends GameState {}
+
+const createGameState = (connection: DeepstreamClient): ServerGameState => {
 	connection.on("error", (...args: any[]) => console.error("Connection error", ...args));
 
 	return {
@@ -10,4 +12,4 @@ const createGameState = (connection: DeepstreamClient): GameState => {
 	};
 };
 
-export { createGameState };
+export { ServerGameState, createGameState };

@@ -1,10 +1,11 @@
-import { PlayerEntity } from "../../common/entities/player.js";
 import { Initialiser } from "../../common/systems/system.js";
-import { createPlayer } from "../entities/player.js";
+import { ServerPlayerEntity } from "../entities/player.js";
+import { ServerGameState } from "../state.js";
 
-const worldInit: Initialiser = (state) => {
-	const testPlayer: PlayerEntity = createPlayer();
-	state.entities.push(testPlayer);
+const worldInit: Initialiser<ServerGameState> = ({ entities }) => {
+	const testPlayer = new ServerPlayerEntity();
+	entities.push(testPlayer);
+	console.debug(`Entity ${testPlayer.id} created`);
 };
 
 export { worldInit };
