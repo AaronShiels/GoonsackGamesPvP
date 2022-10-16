@@ -1,44 +1,50 @@
 import { DeepstreamClient } from "@deepstream/client";
 import { GameState } from "../common/state.js";
-import { Initialiser, System } from "../common/systems/system.js";
 import { timestampMilliseconds } from "../common/utilities/time.js";
+import { ServerGameBus, createGameBus } from "./bus.js";
 import { createGameState } from "./state.js";
-import { syncSystem } from "./systems/sync.js";
-import { worldInit } from "./systems/world.js";
+import { playerSystem } from "./systems/player.js";
 
 const { SERVER_HOST, TICK_RATE } = process.env;
 if (!SERVER_HOST || !TICK_RATE) throw new Error("Invalid configuration provided");
 
 const interval = 1000 / parseInt(TICK_RATE);
-const initialisers: ReadonlyArray<Initialiser> = [worldInit];
-const systems: ReadonlyArray<System> = [syncSystem];
+
+const systems = [playerSystem];
 
 const start = async (): Promise<void> => {
 	// Create multiplayer connection
 	const connection = new DeepstreamClient(SERVER_HOST);
 	await connection.login({ username: "server" });
+	connection.on("error", (...args: any[]) => console.error("Connection error", ...args));
+	console.log("Server connection established");
 
-	// Create and initialise state
-	const state = createGameState(connection);
-	initialisers.forEach((init) => init(state));
+	// Initialise components
+	const state = createGameState();
+	const bus = createGameBus(connection);
 
 	// Start game loop
-	setTimeout(() => onTick(state), interval);
-
+	setTimeout(() => onTick(state, bus), interval);
 	console.log("Game started");
 };
 
 let previousTickTimestamp = timestampMilliseconds();
 
-const onTick = (state: GameState): void => {
+const onTick = (state: GameState, bus: ServerGameBus): void => {
+	// Record start time
 	const currentTickTimestamp = timestampMilliseconds();
 	const delta = currentTickTimestamp - previousTickTimestamp;
 
-	systems.forEach((system) => system(state, delta));
+	// Run systems
+	systems.forEach((system) => system(state, bus, delta));
 
+	// Clean-up
+	bus.clear();
+
+	// Register next loop
 	previousTickTimestamp = currentTickTimestamp;
 	const adjustedInterval = currentTickTimestamp + interval - timestampMilliseconds();
-	setTimeout(() => onTick(state), adjustedInterval);
+	setTimeout(() => onTick(state, bus), adjustedInterval);
 };
 
 start();

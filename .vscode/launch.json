@@ -19,7 +19,7 @@
 			"outFiles": ["${workspaceFolder}/dist/server/**/*.js"],
 			"env": {
 				"SERVER_HOST": "localhost:6020",
-				"TICK_RATE": "20"
+				"TICK_RATE": "5"
 			},
 			"sourceMaps": true
 		}
