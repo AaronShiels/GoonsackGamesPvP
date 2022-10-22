@@ -1,8 +1,7 @@
-import { GameBus } from "./bus.js";
 import { GameState } from "./state.js";
 
-type Initialiser = (state: GameState, bus: GameBus) => void;
+type Initialiser = (state: GameState) => void;
 
-type System = (state: GameState, bus: GameBus, delta: number) => void;
+type System = (state: GameState, delta: number) => void;
 
 export { System, Initialiser };
