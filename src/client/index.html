@@ -9,6 +9,7 @@
     <style>
         html, body {
             background-color: black;
+            color: white;
             margin: 0;
             width:  100%;
             height: 100%;
@@ -24,6 +25,16 @@
     <script defer crossorigin src="<%= deepstreamCdnUrl %>"></script>
 </head>
 
-<body></body>
+<body>
+    <form id="start">
+        <div>
+            <label for="player-name">Player Name:</label>
+            <input type="text" id="start-player-name" name="player-name">
+        </div>
+        <div>
+            <button>Start</button>
+        </div>
+    </form>
+</body>
 
 </html>

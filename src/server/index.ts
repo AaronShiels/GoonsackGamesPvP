@@ -9,8 +9,6 @@ if (!SERVER_HOST || !TICK_RATE) throw new Error("Invalid configuration provided"
 
 const interval = 1000 / parseInt(TICK_RATE);
 
-const systems = [playerSystem];
-
 const start = async (): Promise<void> => {
 	// Initialise components
 	const connection = await createConnection(SERVER_HOST);
@@ -21,6 +19,7 @@ const start = async (): Promise<void> => {
 	console.log("Game started");
 };
 
+const systems = [playerSystem];
 let previousTickTimestamp = timestampMilliseconds();
 
 const onTick = (state: GameState): void => {
