@@ -20,21 +20,14 @@
             margin: auto
         }
     </style>
+    <script defer crossorigin src="<%= reactCdnUrl %>"></script>
+    <script defer crossorigin src="<%= reactDomCdnUrl %>"></script>
     <script defer crossorigin src="<%= pixiCdnUrl %>"></script>
-    <script defer crossorigin src="<%= lodashCdnUrl %>"></script>
     <script defer crossorigin src="<%= deepstreamCdnUrl %>"></script>
 </head>
 
 <body>
-    <form id="start">
-        <div>
-            <label for="player-name">Player Name:</label>
-            <input type="text" id="start-player-name" name="player-name">
-        </div>
-        <div>
-            <button>Start</button>
-        </div>
-    </form>
+    <div id="root"></div>
 </body>
 
 </html>
