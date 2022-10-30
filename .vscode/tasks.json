@@ -34,11 +34,53 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "docker: build",
+			"type": "shell",
+			"command": "docker",
+			"args": ["build", "--tag", "goonsackgames-pvp:latest", "."],
+			"problemMatcher": []
+		},
+		{
+			"label": "docker: tag",
+			"type": "shell",
+			"command": "docker",
+			"args": ["tag", "goonsackgames-pvp:latest", "aaronshiels/goonsackgames-pvp:${input:version}"],
+			"problemMatcher": []
+		},
+		{
+			"label": "docker: push",
+			"type": "shell",
+			"command": "docker",
+			"args": ["push", "aaronshiels/goonsackgames-pvp:${input:version}"],
+			"problemMatcher": []
+		},
+		{
 			"label": "docker: compose: debug",
 			"type": "shell",
 			"command": "docker",
 			"args": ["compose", "--file", "docker-compose.debug.yml", "up"],
 			"problemMatcher": []
+		},
+		{
+			"label": "terraform: init",
+			"type": "shell",
+			"command": "terraform",
+			"args": ["init"],
+			"problemMatcher": []
+		},
+		{
+			"label": "terraform: apply",
+			"type": "shell",
+			"command": "terraform",
+			"args": ["apply"],
+			"problemMatcher": []
+		}
+	],
+	"inputs": [
+		{
+			"id": "version",
+			"description": "Version of the application",
+			"type": "promptString"
 		}
 	]
 }

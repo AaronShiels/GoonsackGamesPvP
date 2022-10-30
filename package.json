@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
-		"client: build: debug": "webpack --mode development --config webpack.config.js --env SERVER_HOST=localhost:6020 --watch",
-		"client: build: release": "webpack --mode production --config webpack.config.js --env SERVER_HOST=localhost:6020",
+		"client: build: debug": "webpack --mode development --config webpack.config.js --watch",
+		"client: build: release": "webpack --mode production --config webpack.config.js",
 		"server: build: debug": "tsc --project tsconfig.server.json --sourceMap --watch",
 		"server: build: release": "tsc --project tsconfig.server.json"
 	},

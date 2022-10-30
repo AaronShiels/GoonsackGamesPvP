@@ -5,9 +5,6 @@ import { System } from "../common/system.js";
 import { createConnection } from "./connection.js";
 import { ClientGameState } from "./state.js";
 
-declare const SERVER_HOST: string;
-if (!SERVER_HOST) throw new Error("Invalid configuration provided");
-
 const startForm = document.getElementById("start") as HTMLFormElement;
 
 // Ensure Player ID
@@ -43,7 +40,8 @@ const start = async (): Promise<void> => {
 	document.body.appendChild(app.view);
 
 	// Initialise components
-	const connection = await createConnection(SERVER_HOST, playerId!);
+	const serverHost = `${location.hostname}:6020`;
+	const connection = await createConnection(serverHost, playerId!);
 	const state = new ClientGameState(connection);
 
 	// Start game loop

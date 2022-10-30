@@ -2,7 +2,6 @@ import { dirname, resolve as resolvePath } from "path";
 import { fileURLToPath } from "url";
 import ResolveTypeScriptPlugin from "resolve-typescript-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import webpack from "webpack";
 import CopyPlugin from "copy-webpack-plugin";
 
 const config = (env, { mode }) => {
@@ -51,15 +50,14 @@ const config = (env, { mode }) => {
 	const htmlPluginConfig = new HtmlWebpackPlugin({
 		template: "./src/client/index.html",
 		templateParameters: {
-			reactCdnUrl: `https://unpkg.com/react@18.2.0/umd/react${debugBuild ? ".development" : "productio.min"}.js`,
-			reactDomCdnUrl: `https://unpkg.com/react-dom@18.2.0/umd/react-dom${debugBuild ? ".development" : "productio.min"}.js`,
+			reactCdnUrl: `https://unpkg.com/react@18.2.0/umd/react${debugBuild ? ".development" : ".production.min"}.js`,
+			reactDomCdnUrl: `https://unpkg.com/react-dom@18.2.0/umd/react-dom${debugBuild ? ".development" : ".production.min"}.js`,
 			pixiCdnUrl: `https://unpkg.com/pixi.js@6.4.2/dist/browser/pixi${debugBuild ? "" : ".min"}.js`,
 			deepstreamCdnUrl: `https://unpkg.com/@deepstream/client@6.0.5/dist/bundle/ds${debugBuild ? "" : ".min"}.js`
 		}
 	});
-	const definePlugin = new webpack.DefinePlugin({ SERVER_HOST: JSON.stringify(env.SERVER_HOST) });
 	// const copyPlugin = new CopyPlugin({ patterns: [{ from: "assets/*/*", context: "./src/client" }] });
-	const plugins = [htmlPluginConfig, definePlugin /*, copyPlugin*/];
+	const plugins = [htmlPluginConfig /*, copyPlugin*/];
 
 	const externals = {
 		react: "React",
