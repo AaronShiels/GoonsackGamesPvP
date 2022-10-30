@@ -62,7 +62,6 @@ const config = (env, { mode }) => {
 	const externals = {
 		react: "React",
 		"react-dom": "ReactDOM",
-		// "react-router-dom": "ReactRouterDOM", TODO externalise
 		"pixi.js": "PIXI",
 		"@deepstream/client": "DeepstreamClient"
 	};

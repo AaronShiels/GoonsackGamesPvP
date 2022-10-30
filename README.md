@@ -1,3 +1,3 @@
-# Sword
+# PvP
 
-Try it out at https://sword.goonsackgames.com (soon)
+Try it out at https://pvp.goonsackgames.com (soon)

@@ -1,5 +1,5 @@
 {
-	"name": "goonsackgamessword",
+	"name": "goonsackgamespvp",
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
@@ -10,14 +10,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/AaronShiels/GoonsackGamesSword.git"
+		"url": "git+https://github.com/AaronShiels/GoonsackGamesPvP.git"
 	},
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/AaronShiels/GoonsackGamesSword/issues"
+		"url": "https://github.com/AaronShiels/GoonsackGamesPvP/issues"
 	},
-	"homepage": "https://github.com/AaronShiels/GoonsackGamesSword#readme",
+	"homepage": "https://github.com/AaronShiels/GoonsackGamesPvP#readme",
 	"devDependencies": {
 		"@types/node": "^18.0.1",
 		"@types/react": "^18.0.21",
