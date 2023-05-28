@@ -1,3 +1,4 @@
+import "bulma/css/bulma.css";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import * as ReactRouterDOM from "react-router-dom";

@@ -2,9 +2,10 @@ import { dirname, resolve as resolvePath } from "path";
 import { fileURLToPath } from "url";
 import ResolveTypeScriptPlugin from "resolve-typescript-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CopyPlugin from "copy-webpack-plugin";
 
-const config = (env, { mode }) => {
+const config = (_, { mode }) => {
 	if (!mode) throw new Error("Mode not provided");
 	const debugBuild = mode !== "production";
 	const src = "./src/client";
@@ -31,7 +32,21 @@ const config = (env, { mode }) => {
 			}
 		]
 	};
-	const module = { rules: [tsLoaderRule] };
+	const cssLoaderRule = {
+		test: /\.css$/,
+		use: [
+			{
+				loader: MiniCssExtractPlugin.loader
+			},
+			{
+				loader: "css-loader",
+				options: {
+					sourceMap: debugBuild
+				}
+			}
+		]
+	};
+	const module = { rules: [tsLoaderRule, cssLoaderRule] };
 
 	const resolveTypeScriptPlugin = new ResolveTypeScriptPlugin();
 	const resolve = {
@@ -47,24 +62,10 @@ const config = (env, { mode }) => {
 		clean: true
 	};
 
-	const htmlPluginConfig = new HtmlWebpackPlugin({
-		template: "./src/client/index.html",
-		templateParameters: {
-			reactCdnUrl: `https://unpkg.com/react@18.2.0/umd/react${debugBuild ? ".development" : ".production.min"}.js`,
-			reactDomCdnUrl: `https://unpkg.com/react-dom@18.2.0/umd/react-dom${debugBuild ? ".development" : ".production.min"}.js`,
-			pixiCdnUrl: `https://unpkg.com/pixi.js@6.4.2/dist/browser/pixi${debugBuild ? "" : ".min"}.js`,
-			deepstreamCdnUrl: `https://unpkg.com/@deepstream/client@6.0.5/dist/bundle/ds${debugBuild ? "" : ".min"}.js`
-		}
-	});
+	const htmlPluginConfig = new HtmlWebpackPlugin({ template: "./src/client/index.html" });
+	const miniCssExtractPlugin = new MiniCssExtractPlugin({ filename: "styles.css" });
 	// const copyPlugin = new CopyPlugin({ patterns: [{ from: "assets/*/*", context: "./src/client" }] });
-	const plugins = [htmlPluginConfig /*, copyPlugin*/];
-
-	const externals = {
-		react: "React",
-		"react-dom": "ReactDOM",
-		"pixi.js": "PIXI",
-		"@deepstream/client": "DeepstreamClient"
-	};
+	const plugins = [htmlPluginConfig, miniCssExtractPlugin /*, copyPlugin*/];
 
 	return {
 		entry,
@@ -73,8 +74,7 @@ const config = (env, { mode }) => {
 		resolve,
 		module,
 		output,
-		plugins,
-		externals
+		plugins
 	};
 };
 
