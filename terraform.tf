@@ -7,8 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    profile = "personal"
-    region  = "us-west-2"
+    region = "us-west-2"
 
     bucket = "aaronshiels-state"
     key    = "pvp.goonsackgames.com/terraform.tfstate"

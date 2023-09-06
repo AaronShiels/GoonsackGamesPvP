@@ -1,6 +1,6 @@
 {
 	"name": "goonsackgamespvp",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
 		"client: build: debug": "webpack --mode development --config webpack.config.js --watch",
