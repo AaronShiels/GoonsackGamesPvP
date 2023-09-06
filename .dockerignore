@@ -6,13 +6,11 @@
 .vscode/
 artifacts/
 node_modules/
-Dockerfile
 docker-compose.*
 *.md
 *.tf
 .gitignore
 .dockerignore
 *.DotSettings.user
-package-lock.json
 .terraform.lock.hcl
 webpack.config.js

@@ -15,6 +15,7 @@ services:
             - ./nginx.debug.conf:/etc/nginx/conf.d/default.conf:ro
         
     server:
-        image: goonsackgames-pvp:latest
-        ports:
-            - 6020:6020  
+        image: aaronshiels/goonsackgames:latest
+        build: .
+        environment:
+            SERVER_HOST: deepstream:6020

@@ -1,12 +1,10 @@
-FROM node:18 AS build
+FROM node:20
+WORKDIR /home/node/app
 
-COPY package.json .
-RUN npm install
+COPY package*.json .
+RUN npm ci --omit=dev
 
-COPY tsconfig.json .
-COPY tsconfig.server.json .
-COPY src/common ./src/common
-COPY src/server ./src/server
-RUN npm run "server: build: release"
+COPY dist/server .
 
-CMD [ "node", "dist/server/index.js" ]
+ENV TICK_RATE=5
+CMD [ "node", "server/index.js" ]
