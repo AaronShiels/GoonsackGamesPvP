@@ -63,7 +63,7 @@ const config = (_, { mode }) => {
 	};
 
 	const htmlPluginConfig = new HtmlWebpackPlugin({ template: "./src/client/index.html" });
-	const miniCssExtractPlugin = new MiniCssExtractPlugin({ filename: "styles.css" });
+	const miniCssExtractPlugin = new MiniCssExtractPlugin({ filename: "styles.[contenthash].css" });
 	// const copyPlugin = new CopyPlugin({ patterns: [{ from: "assets/*/*", context: "./src/client" }] });
 	const plugins = [htmlPluginConfig, miniCssExtractPlugin /*, copyPlugin*/];
 

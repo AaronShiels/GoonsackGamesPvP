@@ -10,7 +10,7 @@ const Default: FC = () => {
 			<form onSubmit={handleSubmit}>
 				<div>
 					<label htmlFor="game-id">Game ID:</label>
-					<input type="text" name="game-id" value={gameId} onChange={(e) => setGameId(e.target.value)} />
+					<input type="text" id="game-id" name="game-id" value={gameId} onChange={(e) => setGameId(e.target.value)} />
 				</div>
 				<div>
 					<button type="submit">Start</button>

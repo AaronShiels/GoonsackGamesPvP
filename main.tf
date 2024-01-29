@@ -123,6 +123,6 @@ resource "aws_s3_object" "client" {
   bucket       = aws_s3_bucket.this.id
   key          = each.value
   source       = "${path.module}/dist/client/${each.value}"
-  content_type = length(regexall(".*.html", each.value)) > 0 ? "text/html" : length(regexall(".*.js", each.value)) > 0 ? "application/json" : "text/plain"
+  content_type = endswith(each.value, ".html") ? "text/html" : endswith(each.value, ".js") ? "text/javascript" : endswith(each.value, ".css") ? "text/css" : "text/plain"
   etag         = filemd5("${path.module}/dist/client/${each.value}")
 }
